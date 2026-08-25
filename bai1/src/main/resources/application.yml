@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: bai1
+  ai:
+    openai:
+      api-key: ${OPEN_ROUTER_API_KEY}
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  otlp:
+    tracing:
+      endpoint: "http://localhost:3000/api/public/otel/v1/traces"
+      headers:
+        Authorization: "Basic ${BASE64_AUTH:cGtfbGZfMTIzNDU6c2tfbGZfNjc4OTA=}"
+      timeout: 2s
+      compression: none
+otel:
+  bsp:
+    schedule:
+      delay: 5000ms
+    max:
+      queue:
+        size: 2048
+      export:
+        batch:
+          size: 512
+    export:
+      timeout: 2000ms
+langfuse:
+  public-key:${LANGFUSE_PUBLIC_KEY}
+  secret-key:${LANGFUSE_SECRET_KEY}
+  host:${LANGFUSE_HOST}
